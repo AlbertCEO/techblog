@@ -5,6 +5,15 @@ import { FaReact, FaMoon, FaSun  } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
+import {
+  updateStart,
+  updateSuccess,
+  updateFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
+  signoutSuccess,
+} from '../redux/user/userSlice';
 
 
 function Header() {
@@ -12,11 +21,23 @@ function Header() {
     const path = useLocation.pathname;
     const { currentUser } = useSelector(state => state.user)
     const { theme } = useSelector((state) => state.theme);
-    const handleSignout = async () => { 
-
-    }
+   
   
-  
+    const handleSignout = async () => {
+      try {
+        const res = await fetch('/api/user/signout', {
+          method: 'POST',
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          console.log(data.message);
+        } else {
+          dispatch(signoutSuccess());
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
   
     return (
     <Navbar className='border-b-2'>
@@ -55,7 +76,7 @@ function Header() {
                 {currentUser.email}
               </span>
             </Dropdown.Header>
-            <Link to={'/dashboard?tab=profile'}>
+            <Link to={'/Dashboard?tab=profile'}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
