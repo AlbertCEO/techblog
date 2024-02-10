@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "https://thumbs.dreamstime.com/b/unknown-male-avatar-profile-image-businessman-vector-unknown-male-avatar-profile-image-businessman-vector-profile-179373829.jpg",
     },
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
 }, {timestamps: true}
 );
 
