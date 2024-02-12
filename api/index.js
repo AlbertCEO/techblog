@@ -7,6 +7,9 @@ import postRoutes from './routes/post.route.js'
 import commentRoutes from './routes/comment.route.js'
 import cookieParser from 'cookie-parser'
 
+// To deploy the website
+import path from 'path'
+
 dotenv.config();
 
 
@@ -27,6 +30,9 @@ app.listen(3000, () => {
     console.log('Server is running on part 3000');
 });
 
+// Deploying the website
+const __dirname = path.resolve();
+
 
 //Creating Routes
 
@@ -34,6 +40,15 @@ app.use('/api/user', userRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/post', postRoutes)
 app.use('/api/comment', commentRoutes)
+
+
+//Deploying the Website
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
+
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
