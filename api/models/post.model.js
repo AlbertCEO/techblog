@@ -2,9 +2,6 @@ import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema(
   {
-    _id: {
-      type: String,
-    },
     userId: {
       type: String,
       required: true,
