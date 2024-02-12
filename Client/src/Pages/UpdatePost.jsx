@@ -108,6 +108,7 @@ export default function UpdatePost() {
       }
     } catch (error) {
       setPublishError('Something went wrong');
+      console.log(publishError)
     }
   };
   return (
@@ -183,7 +184,7 @@ export default function UpdatePost() {
           }}
         />
         <Button type='submit' gradientDuoTone='purpleToPink'>
-          Update post
+          Update post 
         </Button>
         {publishError && (
           <Alert className='mt-5' color='failure'>
